@@ -1,440 +1,470 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HKU Music Club Ocamp</title>
-<!-- Font Link -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
-<style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-body {
-  font-family: 'DotGothic16', sans-serif;
-  background: linear-gradient(135deg, #000022, #000011);
-  color: #00ffff;
-  overflow-x: hidden;
-}
-.loading-screen {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 17, 0.85);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-  opacity: 1;
-  animation: fadeOut 1s forwards;
-  animation-delay: 2s;
-}
-@keyframes fadeOut {
-  to {
-    opacity: 0;
-    visibility: hidden;
-  }
-}
-.container {
-  width: 100vw;
-  height: 100vh;
-  overflow-y: scroll;
-  scroll-snap-type: y mandatory;
-  scroll-behavior: smooth;
-  position: relative;
-}
-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background-color: rgba(0, 0, 17, 0.85);
-  padding: 10px 0;
-  z-index: 1000;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-}
-nav ul {
-  display: flex;
-  justify-content: space-around;
-  list-style-type: none;
-}
-nav ul li a {
-  color: #00ffff;
-  text-decoration: none;
-  font-size: 0.9rem;
-  transition: color 0.3s ease;
-}
-nav ul li a:hover {
-  color: #7fffd4;
-}
-section {
-  width: 100vw;
-  height: 100vh;
-  padding: 60px 40px 80px 20px; /* Top, Right, Bottom, Left padding */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  scroll-snap-align: start;
-  position: relative;
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeIn 0.8s forwards;
-}
-@keyframes fadeIn {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-.stars {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: -1;
-  animation: moveStars 30s linear infinite;
-}
-@keyframes moveStars {
-  from {
-    background-position: 0 0;
-  }
-  to {
-    background-position: 100% 100%;
-  }
-}
-.star {
-  position: absolute;
-  background-color: #fff;
-  border-radius: 50%;
-  animation: twinkle 3s infinite ease-in-out;
-}
-@keyframes twinkle {
-  0%, 100% { opacity: 0.3; }
-  50% { opacity: 1; }
-}
-.logo {
-  font-size: 1.8rem;
-  text-align: center;
-  margin-bottom: 30px;
-  animation: glow 2s ease-in-out infinite alternate;
-}
-@keyframes glow {
-  from { text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff; }
-  to { text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff; }
-}
-.planet {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  margin: 20px auto;
-  animation: rotate 10s linear infinite;
-  transition: transform 0.3s ease;
-}
-@keyframes rotate {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-#planet1 { background: radial-gradient(circle at 30% 30%, #ffff00, #ffa500); }
-#planet2 { background: radial-gradient(circle at 30% 30%, #ff6347, #8b0000); }
-#planet3 { background: radial-gradient(circle at 30% 30%, #00ffff, #1e90ff); }
-h2 {
-  font-size: 1.4rem;
-  margin-bottom: 20px;
-  color: #7fffd4;
-  transition: opacity 0.5s ease;
-}
-p {
-  font-size: 1rem;
-  line-height: 1.6;
-  margin-bottom: 20px;
-  padding: 0 10px;
-  transition: opacity 0.5s ease;
-}
-.scroll-indicator {
-  position: absolute;
-  bottom: 80px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 2rem;
-  animation: bounce 1.5s infinite;
-  color: #7fffd4;
-}
-.butterfly {
-  position: absolute;
-  bottom: 70px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 50px;
-}
-@keyframes bounce {
-  0%, 100% { transform: translateY(0) translateX(-50%); }
-  50% { transform: translateY(-10px) translateX(-50%); }
-}
-.progress-container {
-  width: 100%;
-  height: 5px;
-  background: #1e1e3f;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 1001;
-}
-.progress-bar {
-  height: 5px;
-  background: #00ffff;
-  width: 0%;
-}
-.noise {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: url('https://img.lovepik.com/photo/50062/7391.jpg_wh860.jpg');
-  opacity: 0.1;
-  pointer-events: none;
-}
-.mouse-glow {
-  position: fixed;
-  pointer-events: none;
-  width: 300px;
-  height: 300px;
-  border-radius: 50%;
-  background-color: rgba(0, 255, 255, 0.2);
-  transform: scale(0);
-  transition: transform 0.2s, background-color 0.2s;
-  box-shadow: 0 0 100px rgba(0, 255, 255, 1);
-  z-index: 999;
-  opacity: 0.5;
-}
-.floating-image {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 50px;
-  height: auto;
-  animation: shake 2s infinite;
-}
-@keyframes shake {
-  0%, 100% { transform: translateY(0); }
-  25% { transform: translateY(-3px); }
-  75% { transform: translateY(3px); }
-}
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 10000;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0, 0, 0, 0.8);
-  justify-content: center;
-  align-items: center;
-}
-.modal-content-wrapper {
-  position: relative;
-  width: 80%;
-  max-width: 450px;
-  text-align: center;
-}
-.modal-content {
-  width: 100%;
-  display: block;
-}
-.modal-title {
-  color: #ffffff;
-  font-size: 1.2rem;
-  margin-bottom: 10px;
-}
-.close {
-  position: absolute;
-  top: 5px;
-  right: 10px;
-  color: #ffffff;
-  font-size: 30px;
-  font-weight: bold;
-  cursor: pointer;
-}
-#campsiteImage {
-  max-width: 40%;
-  height: auto;
-}
-@media(min-width: 768px) {
-  #campsiteImage {
-    max-width: 15%;
-  }
-}
-.rundown {
-  text-align: left;
-  margin: 0 auto;
-  max-width: 300px;
-  overflow-y: auto;
-  max-height: calc(70vh - 300px); /* Adjusted max-height */
-  font-size: 0.8rem;
-  position: relative; /* Added position relative */
-  padding-bottom: 80px; /* Added padding to avoid overlap with butterfly */
-}
-.rundown h3 {
-  margin-top: 20px;
-  color: #7fffd4;
-  cursor: pointer;
-}
-.rundown ul {
-  list-style-type: none;
-  padding-left: 0;
-  display: none;
-}
-.rundown li {
-  margin-bottom: 10px;
-}
-.active {
-  display: block !important;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HKU Music Club Ocamp</title>
+    <!-- Font Link -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'DotGothic16', sans-serif;
+            background: linear-gradient(135deg, #000022, #000011);
+            color: #00ffff;
+            overflow-x: hidden;
+        }
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 17, 0.85);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            opacity: 1;
+            animation: fadeOut 1s forwards;
+            animation-delay: 2s;
+        }
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+        .container {
+            width: 100vw;
+            height: 100vh;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+            position: relative;
+        }
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 17, 0.85);
+            padding: 10px 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        nav ul {
+            display: flex;
+            justify-content: space-around;
+            list-style-type: none;
+        }
+        nav ul li a {
+            color: #00ffff;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+        nav ul li a:hover {
+            color: #7fffd4;
+        }
+        section {
+            width: 100vw;
+            height: 100vh;
+            padding: 60px 40px 80px 20px; /* Top, Right, Bottom, Left padding */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            scroll-snap-align: start;
+            position: relative;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.8s forwards;
+        }
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            animation: moveStars 30s linear infinite;
+        }
+        @keyframes moveStars {
+            from {
+                background-position: 0 0;
+            }
+            to {
+                background-position: 100% 100%;
+            }
+        }
+        .star {
+            position: absolute;
+            background-color: #fff;
+            border-radius: 50%;
+            animation: twinkle 3s infinite ease-in-out;
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+        .logo {
+            font-size: 1.8rem;
+            text-align: center;
+            margin-bottom: 30px;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        @keyframes glow {
+            from { text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff; }
+            to { text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff; }
+        }
+        .planet {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin: 20px auto;
+            animation: rotate 10s linear infinite;
+            transition: transform 0.3s ease;
+        }
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        #planet1 { background: radial-gradient(circle at 30% 30%, #ffff00, #ffa500); }
+        #planet2 { background: radial-gradient(circle at 30% 30%, #ff6347, #8b0000); }
+        #planet3 { background: radial-gradient(circle at 30% 30%, #00ffff, #1e90ff); }
+        h2 {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            color: #7fffd4;
+            transition: opacity 0.5s ease;
+        }
+        p {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            padding: 0 10px;
+            transition: opacity 0.5s ease;
+        }
+        .scroll-indicator {
+            position: absolute;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2rem;
+            animation: bounce 1.5s infinite;
+            color: #7fffd4;
+        }
+        .butterfly {
+            position: absolute;
+            bottom: 70px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0) translateX(-50%); }
+            50% { transform: translateY(-10px) translateX(-50%); }
+        }
+        .progress-container {
+            width: 100%;
+            height: 5px;
+            background: #1e1e3f;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1001;
+        }
+        .progress-bar {
+            height: 5px;
+            background: #00ffff;
+            width: 0%;
+        }
+        .noise {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://img.lovepik.com/photo/50062/7391.jpg_wh860.jpg');
+            opacity: 0.1;
+            pointer-events: none;
+        }
+        .mouse-glow {
+            position: fixed;
+            pointer-events: none;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background-color: rgba(0, 255, 255, 0.2);
+            transform: scale(0);
+            transition: transform 0.2s, background-color 0.2s;
+            box-shadow: 0 0 100px rgba(0, 255, 255, 1);
+            z-index: 999;
+            opacity: 0.5;
+        }
+        .floating-image {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: auto;
+            animation: shake 2s infinite;
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateY(0); }
+            25% { transform: translateY(-3px); }
+            75% { transform: translateY(3px); }
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content-wrapper {
+            position: relative;
+            width: 80%;
+            max-width: 450px;
+            text-align: center;
+        }
+        .modal-content {
+            width: 100%;
+            display: block;
+        }
+        .modal-title {
+            color: #ffffff;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+        .close {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            color: #ffffff;
+            font-size: 30px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        #campsiteImage {
+            max-width: 40%;
+            height: auto;
+        }
+        @media(min-width: 768px) {
+            #campsiteImage {
+                max-width: 15%;
+            }
+        }
+        .rundown, .emergency-contact {
+            text-align: left;
+            margin: 0 auto;
+            max-width: 300px;
+            overflow-y: auto;
+            max-height: calc(70vh - 300px); /* Adjusted max-height */
+            font-size: 0.8rem;
+            position: relative; /* Added position relative */
+            padding-bottom: 80px; /* Added padding to avoid overlap with butterfly */
+        }
+        .rundown h3, .emergency-contact h3 {
+            margin-top: 20px;
+            color: #7fffd4;
+            cursor: pointer;
+        }
+        .rundown ul, .emergency-contact ul {
+            list-style-type: none;
+            padding-left: 0;
+            display: none;
+        }
+        .rundown li, .emergency-contact li {
+            margin-bottom: 10px;
+        }
+        .active {
+            display: block !important;
+        }
+    </style>
 </head>
 <body>
-<div class="loading-screen">
-  <img src="https://i.imgur.com/83Cynwp.png" alt="Loading Logo" style="width: 200px;">
-</div>
-<div class="noise"></div>
-<div class="mouse-glow" id="mouseGlow"></div>
-<img src="https://i.imgur.com/JlNPQqC.png" class="floating-image" alt="Floating Image">
-<header>
-  <nav>
-    <ul>
-      <li><a href="#intro">Introduction</a></li>
-      <li><a href="#activities">Activities</a></li>
-      <li><a href="#info">Rundown</a></li>
-      <li><a href="#campsite">Campsite Map</a></li>
-    </ul>
-  </nav>
-</header>
-<div class="stars" id="stars"></div>
-<div class="container" id="scrollContainer">
-  <section id="intro">
-    <div class="logo">HKU MUSIC CLUB</div>
-    <h2>"GALAXY"</h2>
-    <p>Orientation Series</p>
-    <div class="scroll-indicator">
-      <img class="butterfly" src="https://gifdb.com/images/high/pixelated-blue-butterflies-9gmbpet2dl3jpdhj.gif" alt="Butterfly GIF">
-      ↓
+    <div class="loading-screen">
+        <img src="https://i.imgur.com/83Cynwp.png" alt="Loading Logo" style="width: 200px;">
     </div>
-  </section>
-  <section id="activities">
-    <div class="planet" id="planet1"></div>
-    <h2>TEST</h2>
-    <p>1. TEST</p>
-    <p>2. TEST</p>
-    <p>3. TEST</p>
-    <div class="scroll-indicator">
-      <img class="butterfly" src="https://gifdb.com/images/high/pixelated-blue-butterflies-9gmbpet2dl3jpdhj.gif" alt="Butterfly GIF">
-      ↓
+    <div class="noise"></div>
+    <div class="mouse-glow" id="mouseGlow"></div>
+    <img src="https://i.imgur.com/JlNPQqC.png" class="floating-image" alt="Floating Image">
+    <header>
+        <nav>
+            <ul>
+                <li><a href="#intro">Home</a></li>
+                <li><a href="#activities">About Us</a></li>
+                <li><a href="#info">Rundown</a></li>
+                <li><a href="#campsite">Campsite Map</a></li>
+                <li><a href="#emergency">Emergency Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="stars" id="stars"></div>
+    <div class="container" id="scrollContainer">
+        <section id="intro">
+            <div class="logo">HKU MUSIC CLUB</div>
+            <h2>"GALAXY"</h2>
+            <p>Orientation Series</p>
+            <div class="scroll-indicator">
+                <img class="butterfly" src="https://gifdb.com/images/high/pixelated-blue-butterflies-9gmbpet2dl3jpdhj.gif" alt="Butterfly GIF">
+                ↓
+            </div>
+        </section>
+        <section id="activities">
+            <div class="planet" id="planet1"></div>
+            <h2>TEST</h2>
+            <p>1. TEST</p>
+            <p>2. TEST</p>
+            <p>3. TEST</p>
+            <div class="scroll-indicator">
+                <img class="butterfly" src="https://gifdb.com/images/high/pixelated-blue-butterflies-9gmbpet2dl3jpdhj.gif" alt="Butterfly GIF">
+                ↓
+            </div>
+        </section>
+        <section id="info">
+            <div class="planet" id="planet2"></div>
+            <h2>Rundown</h2>
+            <div class="rundown">
+                <h3 id="day1">DAY1</h3>
+                <ul id="day1List">
+                    <li>09:00 Gathering Time</li>
+                    <li>09:00 Ice Breaking Games</li>
+                    <li>09:50 Mass Game</li>
+                    <li>11:00 Lunch</li>
+                    <li>13:10 Departure Time</li>
+                    <li>13:45 Disembarkation Time</li>
+                    <li>15:30 Water Games</li>
+                    <li>18:00 Dinner</li>
+                    <li>19:00 Campfire</li>
+                    <li>22:00 Band Practice</li>
+                </ul>
+                <h3 id="day2">Day2</h3>
+                <ul id="day2List">
+                    <li>09:00 Band Performance</li>
+                    <li>10:45 Turtle Back</li>
+                    <li>12:00 Dismiss</li>
+                </ul>
+            </div>
+            <div class="scroll-indicator">
+                <img class="butterfly" src="https://gifdb.com/images/high/pixelated-blue-butterflies-9gmbpet2dl3jpdhj.gif" alt="Butterfly GIF">
+                ↓
+            </div>
+        </section>
+        <section id="campsite">
+            <h2>Campsite Map</h2>
+            <img src="https://i.imgur.com/WrhRRRF.jpeg" alt="Campsite Map" id="campsiteImage">
+            <div class="scroll-indicator">
+                <img class="butterfly" src="https://gifdb.com/images/high/pixelated-blue-butterflies-9gmbpet2dl3jpdhj.gif" alt="Butterfly GIF">
+                ↓
+            </div>
+        </section>
+        <section id="emergency">
+            <h2>Emergency Contact</h2>
+            <div class="emergency-contact">
+                <h3 id="contacts">Contacts</h3>
+                <ul id="contactList">
+                    <li>O-camp PIC</li>
+                    <li>Liam Lun, Internal Vice-chairperson<br>Telephone/ WhatsApp: 5319 5937</li>
+                    <li>Mackenzie Mow, External Vice-chairperson<br>Telephone/ WhatsApp: 5546 8431</li>
+                    <li>Lambo Hui, General Secretary<br>Telephone/ WhatsApp: 6184 1794</li>
+                    <li>Michelle Chan, Publication Secretary and Publicity Secretary<br>Telephone/ WhatsApp: 5404 1224</li>
+                    <li>Campsite<br>Hong Kong Playground Association Jockey Club Silvermine Bay Camp (賽馬會銀礦灣營)<br>Telephone: 2984 7847</li>
+                    <li>Emergency Call<br>Telephone: 999</li>
+                    <li>Hong Kong Police Force<br>Lantau South Divisional Police Station (大嶼山南分區警署)<br>Telephone: 3661 1696</li>
+                </ul>
+            </div>
+            <div class="scroll-indicator">
+                <img class="butterfly" src="https://gifdb.com/images/high/pixelated-blue-butterflies-9gmbpet2dl3jpdhj.gif" alt="Butterfly GIF">
+                ↓
+            </div>
+        </section>
     </div>
-  </section>
-  <section id="info">
-    <div class="planet" id="planet2"></div>
-    <h2>Rundown</h2>
-    <div class="rundown">
-      <h3 id="day1">DAY1</h3>
-      <ul id="day1List">
-        <li>09:00 Gathering Time</li>
-        <li>09:00 Ice Breaking Games</li>
-        <li>09:50 Mass Game</li>
-        <li>11:00 Lunch</li>
-        <li>13:10 Departure Time</li>
-        <li>13:45 Disembarkation Time</li>
-        <li>15:30 Water Games</li>
-        <li>18:00 Dinner</li>
-        <li>19:00 Campfire</li>
-        <li>22:00 Band Practice</li>
-      </ul>
-      <h3 id="day2">Day2</h3>
-      <ul id="day2List">
-        <li>09:00 Band Performance</li>
-        <li>10:45 Turtle Back</li>
-        <li>12:00 Dismiss</li>
-      </ul>
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
     </div>
-    <div class="scroll-indicator">
-      <img class="butterfly" src="https://gifdb.com/images/high/pixelated-blue-butterflies-9gmbpet2dl3jpdhj.gif" alt="Butterfly GIF">
-      ↓
+    <div id="myModal" class="modal">
+        <div class="modal-content-wrapper">
+            <span class="close">&times;</span>
+            <div class="modal-title" id="caption"></div>
+            <img class="modal-content" id="img01">
+        </div>
     </div>
-  </section>
-  <section id="campsite">
-    <h2>Campsite Map</h2>
-    <img src="https://i.imgur.com/WrhRRRF.jpeg" alt="Campsite Map" id="campsiteImage">
-    <div class="scroll-indicator">
-      <img class="butterfly" src="https://gifdb.com/images/high/pixelated-blue-butterflies-9gmbpet2dl3jpdhj.gif" alt="Butterfly GIF">
-      ↓
-    </div>
-  </section>
-</div>
-<div class="progress-container">
-  <div class="progress-bar" id="progressBar"></div>
-</div>
-<div id="myModal" class="modal">
-  <div class="modal-content-wrapper">
-    <span class="close">&times;</span>
-    <div class="modal-title" id="caption"></div>
-    <img class="modal-content" id="img01">
-  </div>
-</div>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  const modal = document.getElementById("myModal");
-  const img = document.getElementById("campsiteImage");
-  const modalImg = document.getElementById("img01");
-  const captionText = document.getElementById("caption");
-  const span = document.getElementsByClassName("close")[0];
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = document.getElementById("myModal");
+            const img = document.getElementById("campsiteImage");
+            const modalImg = document.getElementById("img01");
+            const captionText = document.getElementById("caption");
+            const span = document.getElementsByClassName("close")[0];
 
-  img.addEventListener('click', function() {
-    modal.style.display = "flex";
-    modalImg.src = this.src;
-    captionText.innerHTML = this.alt;
-  });
+            img.addEventListener('click', function() {
+                modal.style.display = "flex";
+                modalImg.src = this.src;
+                captionText.innerHTML = this.alt;
+            });
 
-  span.addEventListener('click', function() {
-    modal.style.display = "none";
-  });
+            span.addEventListener('click', function() {
+                modal.style.display = "none";
+            });
 
-  window.addEventListener('click', function(event) {
-    if (event.target === modal) {
-      modal.style.display = "none";
-    }
-  });
+            window.addEventListener('click', function(event) {
+                if (event.target === modal) {
+                    modal.style.display = "none";
+                }
+            });
 
-  // Rundown toggle functionality
-  const day1 = document.getElementById('day1');
-  const day2 = document.getElementById('day2');
-  const day1List = document.getElementById('day1List');
-  const day2List = document.getElementById('day2List');
+            // Rundown toggle functionality
+            const day1 = document.getElementById('day1');
+            const day2 = document.getElementById('day2');
+            const day1List = document.getElementById('day1List');
+            const day2List = document.getElementById('day2List');
 
-  day1.addEventListener('click', function() {
-    day1List.classList.toggle('active');
-    day2List.classList.remove('active');
-  });
+            day1.addEventListener('click', function() {
+                day1List.classList.toggle('active');
+                day2List.classList.remove('active');
+            });
 
-  day2.addEventListener('click', function() {
-    day2List.classList.toggle('active');
-    day1List.classList.remove('active');
-  });
+            day2.addEventListener('click', function() {
+                day2List.classList.toggle('active');
+                day1List.classList.remove('active');
+            });
 
-  // Hide both DAY1 and DAY2 details by default
-  day1List.classList.remove('active');
-  day2List.classList.remove('active');
-});
+            // Emergency contact toggle functionality
+            const contacts = document.getElementById('contacts');
+            const contactList = document.getElementById('contactList');
+
+            contacts.addEventListener('click', function() {
+                contactList.classList.toggle('active');
+            });
+
+            // Hide both DAY1 and DAY2 details by default
+            day1List.classList.remove('active');
+            day2List.classList.remove('active');
+            contactList.classList.remove('active');
+        });
 
 function createStars() {
   const stars = document.getElementById('stars');
