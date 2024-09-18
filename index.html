@@ -62,7 +62,7 @@
             left: 0;
             width: 100%;
             background-color: rgba(0, 0, 17, 0.85);
-            padding: 10px 0; /* Reduced padding */
+            padding: 10px 0;
             z-index: 1000;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
@@ -87,7 +87,7 @@
         section {
             width: 100vw;
             height: 100vh;
-            padding: 60px 20px; /* Reduced padding */
+            padding: 60px 20px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -187,7 +187,7 @@
 
         .scroll-indicator {
             position: absolute;
-            bottom: 30px;
+            bottom: 80px; /* Increased to avoid URL bar */
             left: 50%;
             transform: translateX(-50%);
             font-size: 2rem;
@@ -197,7 +197,7 @@
 
         .butterfly {
             position: absolute;
-            bottom: 60px;
+            bottom: 110px; /* Increased to avoid URL bar */
             left: 50%;
             transform: translateX(-50%);
             width: 50px; 
@@ -299,6 +299,9 @@
             height: 100%;
             overflow: auto;
             background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .modal-content {
@@ -421,7 +424,7 @@
         const captionText = document.getElementById("caption");
 
         img.onclick = function(){
-            modal.style.display = "block";
+            modal.style.display = "flex"; /* Flex to center content */
             modalImg.src = this.src;
             captionText.innerHTML = this.alt;
         }
