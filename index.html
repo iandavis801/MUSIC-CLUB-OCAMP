@@ -85,7 +85,7 @@
         }
 
         section {
-            width: 90vw;
+            width: 100vw;
             height: 100vh;
             padding: 60px 40px 80px 20px; /* Top, Right, Bottom, Left padding */
             display: flex;
@@ -234,31 +234,6 @@
             pointer-events: none;
         }
 
-        .circle-indicator {
-            position: fixed;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .circle {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: transparent;
-            border: 2px solid #7fffd4;
-            transition: background 0.3s, width 0.3s, height 0.3s;
-        }
-
-        .circle.filled {
-            background: #00ffff;
-            width: 18px;
-            height: 18px;
-        }
-
         .mouse-glow {
             position: fixed;
             pointer-events: none;
@@ -345,6 +320,8 @@
             text-align: left;
             margin: 0 auto;
             max-width: 300px;
+            overflow-y: auto;
+            max-height: 70vh;
         }
 
         .rundown h3 {
@@ -452,13 +429,6 @@
         <div class="progress-bar" id="progressBar"></div>
     </div>
 
-    <div class="circle-indicator">
-        <div class="circle" data-section="#intro"></div>
-        <div class="circle" data-section="#activities"></div>
-        <div class="circle" data-section="#info"></div>
-        <div class="circle" data-section="#campsite"></div>
-    </div>
-
     <div id="myModal" class="modal">
         <div class="modal-content-wrapper">
             <span class="close">&times;</span>
@@ -519,27 +489,6 @@
             progressBar.style.width = scrollPercentage + '%';
         }
 
-        function updateCircleIndicator() {
-            const circles = document.querySelectorAll('.circle');
-            const sections = document.querySelectorAll('section');
-
-            sections.forEach((section, index) => {
-                const rect = section.getBoundingClientRect();
-                if (rect.top <= window.innerHeight / 2 && rect.bottom > window.innerHeight / 2) {
-                    circles.forEach(circle => {
-                        circle.classList.remove('filled');
-                        circle.style.background = 'transparent';
-                        circle.style.width = '12px';
-                        circle.style.height = '12px';
-                    });
-                    circles[index].classList.add('filled');
-                    circles[index].style.background = '#00ffff';
-                    circles[index].style.width = '18px';
-                    circles[index].style.height = '18px';
-                }
-            });
-        }
-
         const mouseGlow = document.getElementById('mouseGlow');
 
         document.addEventListener('mousemove', (e) => {
@@ -557,7 +506,6 @@
             const scrollContainer = document.getElementById('scrollContainer');
             scrollContainer.addEventListener('scroll', () => {
                 updateProgressBar();
-                updateCircleIndicator();
             });
 
             const loadingScreen = document.querySelector('.loading-screen');
