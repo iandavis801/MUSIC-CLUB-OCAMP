@@ -61,7 +61,7 @@
         }
         nav ul {
             display: flex;
-            justify-content: space-around;
+            justify-content: space-evenly;
             list-style-type: none;
         }
         nav ul li a {
@@ -281,10 +281,10 @@
             margin: 0 auto;
             max-width: 300px;
             overflow-y: auto;
-            max-height: calc(70vh - 300px); /* Adjusted max-height */
+            max-height: calc(70vh - 300px);
             font-size: 0.8rem;
-            position: relative; /* Added position relative */
-            padding-bottom: 80px; /* Added padding to avoid overlap with butterfly */
+            position: relative;
+            padding-bottom: 80px;
         }
         .rundown h3, .emergency-contact h3 {
             margin-top: 20px;
@@ -318,7 +318,7 @@
                 <li><a href="#activities">About Us</a></li>
                 <li><a href="#info">Rundown</a></li>
                 <li><a href="#campsite">Campsite Map</a></li>
-                <li><a href="#emergency">Emergency Contact</a></li>
+                <li><a href="#emergency">Emergency</a></li>
             </ul>
         </nav>
     </header>
@@ -384,16 +384,24 @@
         <section id="emergency">
             <h2>Emergency Contact</h2>
             <div class="emergency-contact">
-                <h3 id="contacts">Contacts</h3>
-                <ul id="contactList">
-                    <li>O-camp PIC</li>
+                <h3 id="ocampPic">O-Camp PIC</h3>
+                <ul id="ocampPicList">
                     <li>Liam Lun, Internal Vice-chairperson<br>Telephone/ WhatsApp: 5319 5937</li>
                     <li>Mackenzie Mow, External Vice-chairperson<br>Telephone/ WhatsApp: 5546 8431</li>
                     <li>Lambo Hui, General Secretary<br>Telephone/ WhatsApp: 6184 1794</li>
                     <li>Michelle Chan, Publication Secretary and Publicity Secretary<br>Telephone/ WhatsApp: 5404 1224</li>
-                    <li>Campsite<br>Hong Kong Playground Association Jockey Club Silvermine Bay Camp (賽馬會銀礦灣營)<br>Telephone: 2984 7847</li>
-                    <li>Emergency Call<br>Telephone: 999</li>
-                    <li>Hong Kong Police Force<br>Lantau South Divisional Police Station (大嶼山南分區警署)<br>Telephone: 3661 1696</li>
+                </ul>
+                <h3 id="campsite">Campsite</h3>
+                <ul id="campsiteList">
+                    <li>Hong Kong Playground Association Jockey Club Silvermine Bay Camp<br>Telephone: 2984 7847</li>
+                </ul>
+                <h3 id="emergencyCall">Emergency Call</h3>
+                <ul id="emergencyCallList">
+                    <li>Telephone: 999</li>
+                </ul>
+                <h3 id="police">Hong Kong Police Force</h3>
+                <ul id="policeList">
+                    <li>Lantau South Divisional Police Station<br>Telephone: 3661 1696</li>
                 </ul>
             </div>
             <div class="scroll-indicator">
@@ -419,7 +427,7 @@
             const modalImg = document.getElementById("img01");
             const captionText = document.getElementById("caption");
             const span = document.getElementsByClassName("close")[0];
-
+            
             img.addEventListener('click', function() {
                 modal.style.display = "flex";
                 modalImg.src = this.src;
@@ -453,66 +461,91 @@
             });
 
             // Emergency contact toggle functionality
-            const contacts = document.getElementById('contacts');
-            const contactList = document.getElementById('contactList');
+            const ocampPic = document.getElementById('ocampPic');
+            const ocampPicList = document.getElementById('ocampPicList');
+            const campsite = document.getElementById('campsite');
+            const campsiteList = document.getElementById('campsiteList');
+            const emergencyCall = document.getElementById('emergencyCall');
+            const emergencyCallList = document.getElementById('emergencyCallList');
+            const police = document.getElementById('police');
+            const policeList = document.getElementById('policeList');
 
-            contacts.addEventListener('click', function() {
-                contactList.classList.toggle('active');
+            ocampPic.addEventListener('click', function() {
+                ocampPicList.classList.toggle('active');
             });
 
-            // Hide both DAY1 and DAY2 details by default
-            day1List.classList.remove('active');
-            day2List.classList.remove('active');
-            contactList.classList.remove('active');
+            campsite.addEventListener('click', function() {
+                campsiteList.classList.toggle('active');
+            });
+
+            emergencyCall.addEventListener('click', function() {
+                emergencyCallList.classList.toggle('active');
+            });
+
+            police.addEventListener('click', function() {
+                policeList.classList.toggle('active');
+            });
+
+            // Hide all contact details by default
+            ocampPicList.classList.remove('active');
+            campsiteList.classList.remove('active');
+            emergencyCallList.classList.remove('active');
+            policeList.classList.remove('active');
+
+            // Create star field
+            function createStars() {
+                const stars = document.getElementById('stars');
+                const count = 100;
+                for (let i = 0; i < count; i++) {
+                    const star = document.createElement('div');
+                    star.className = 'star';
+                    star.style.width = `${Math.random() * 3}px`;
+                    star.style.height = star.style.width;
+                    star.style.left = `${Math.random() * 100}%`;
+                    star.style.top = `${Math.random() * 100}%`;
+                    star.style.animationDelay = `${Math.random() * 5}s`;
+                    stars.appendChild(star);
+                }
+            }
+
+            // Update progress bar
+            function updateProgressBar() {
+                const progressBar = document.getElementById('progressBar');
+                const scrollContainer = document.getElementById('scrollContainer');
+                const scrollTop = scrollContainer.scrollTop;
+                const scrollHeight = scrollContainer.scrollHeight - scrollContainer.clientHeight;
+                const scrollPercentage = (scrollTop / scrollHeight) * 100;
+                progressBar.style.width = scrollPercentage + '%';
+            }
+
+            // Mouse glow effect
+            const mouseGlow = document.getElementById('mouseGlow');
+            document.addEventListener('mousemove', (e) => {
+                mouseGlow.style.left = `${e.clientX - 150}px`;
+                mouseGlow.style.top = `${e.clientY - 150}px`;
+                mouseGlow.style.transform = 'scale(1)';
+            });
+
+            document.addEventListener('mouseleave', () => {
+                mouseGlow.style.transform = 'scale(0)';
+            });
+
+            // Initialize everything on page load
+            window.addEventListener('load', () => {
+                createStars();
+                const scrollContainer = document.getElementById('scrollContainer');
+                scrollContainer.addEventListener('scroll', () => {
+                    updateProgressBar();
+                });
+
+                const loadingScreen = document.querySelector('.loading-screen');
+                setTimeout(() => {
+                    loadingScreen.style.animation = 'fadeOut 1s forwards';
+                }, 2000);
+            });
         });
-
-function createStars() {
-  const stars = document.getElementById('stars');
-  const count = 100;
-  for (let i = 0; i < count; i++) {
-    const star = document.createElement('div');
-    star.className = 'star';
-    star.style.width = `${Math.random() * 3}px`;
-    star.style.height = star.style.width;
-    star.style.left = `${Math.random() * 100}%`;
-    star.style.top = `${Math.random() * 100}%`;
-    star.style.animationDelay = `${Math.random() * 5}s`;
-    stars.appendChild(star);
-  }
-}
-
-function updateProgressBar() {
-  const progressBar = document.getElementById('progressBar');
-  const scrollContainer = document.getElementById('scrollContainer');
-  const scrollTop = scrollContainer.scrollTop;
-  const scrollHeight = scrollContainer.scrollHeight - scrollContainer.clientHeight;
-  const scrollPercentage = (scrollTop / scrollHeight) * 100;
-  progressBar.style.width = scrollPercentage + '%';
-}
-
-const mouseGlow = document.getElementById('mouseGlow');
-document.addEventListener('mousemove', (e) => {
-  mouseGlow.style.left = `${e.clientX - 150}px`;
-  mouseGlow.style.top = `${e.clientY - 150}px`;
-  mouseGlow.style.transform = 'scale(1)';
-});
-
-document.addEventListener('mouseleave', () => {
-  mouseGlow.style.transform = 'scale(0)';
-});
-
-window.addEventListener('load', () => {
-  createStars();
-  const scrollContainer = document.getElementById('scrollContainer');
-  scrollContainer.addEventListener('scroll', () => {
-    updateProgressBar();
-  });
-
-  const loadingScreen = document.querySelector('.loading-screen');
-  setTimeout(() => {
-    loadingScreen.style.animation = 'fadeOut 1s forwards';
-  }, 2000);
-});
-</script>
+    </script>
 </body>
 </html>
+
+
