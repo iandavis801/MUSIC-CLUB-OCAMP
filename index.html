@@ -87,11 +87,12 @@
         section {
             width: 100vw;
             height: 100vh;
-            padding: 60px 20px;
+            padding: 60px 40px 120px 20px; /* Top, Right, Bottom, Left padding */
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            text-align: center;
             scroll-snap-align: start;
             position: relative;
             opacity: 0;
@@ -172,7 +173,6 @@
             font-size: 1.4rem;
             margin-bottom: 20px;
             color: #7fffd4;
-            text-align: center;
             transition: opacity 0.5s ease;
         }
 
@@ -180,14 +180,13 @@
             font-size: 1rem;
             line-height: 1.6;
             margin-bottom: 20px;
-            text-align: center;
             padding: 0 10px;
             transition: opacity 0.5s ease;
         }
 
         .scroll-indicator {
             position: absolute;
-            bottom: 90px; /* Increased distance to avoid URL bar */
+            bottom: 40px; /* Reduce gap from bottom */
             left: 50%;
             transform: translateX(-50%);
             font-size: 2rem;
@@ -197,7 +196,7 @@
 
         .butterfly {
             position: absolute;
-            bottom: 80px; /* Slightly above the arrow for better UX */
+            bottom: 70px; /* Place butterfly close to the arrow */
             left: 50%;
             transform: translateX(-50%);
             width: 50px; 
@@ -243,6 +242,7 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
+            z-index: 999;
         }
 
         .circle {
@@ -270,7 +270,7 @@
             transform: scale(0);
             transition: transform 0.2s, background-color 0.2s;
             box-shadow: 0 0 100px rgba(0, 255, 255, 1);
-            z-index: 999;
+            z-index: 998;
             opacity: 0.5;
         }
 
