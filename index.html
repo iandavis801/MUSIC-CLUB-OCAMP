@@ -422,73 +422,34 @@
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const modal = document.getElementById("myModal");
-            const img = document.getElementById("campsiteImage");
-            const modalImg = document.getElementById("img01");
-            const captionText = document.getElementById("caption");
-            const span = document.getElementsByClassName("close")[0];
-            
-            img.addEventListener('click', function() {
-                modal.style.display = "flex";
-                modalImg.src = this.src;
-                captionText.innerHTML = this.alt;
-            });
-
-            span.addEventListener('click', function() {
-                modal.style.display = "none";
-            });
-
-            window.addEventListener('click', function(event) {
-                if (event.target === modal) {
-                    modal.style.display = "none";
-                }
-            });
-
-            // Rundown toggle functionality
-            const day1 = document.getElementById('day1');
-            const day2 = document.getElementById('day2');
-            const day1List = document.getElementById('day1List');
-            const day2List = document.getElementById('day2List');
-
-            day1.addEventListener('click', function() {
-                day1List.classList.toggle('active');
-                day2List.classList.remove('active');
-            });
-
-            day2.addEventListener('click', function() {
-                day2List.classList.toggle('active');
-                day1List.classList.remove('active');
-            });
-
-            // Emergency contact toggle functionality
             const ocampPic = document.getElementById('ocampPic');
             const ocampPicList = document.getElementById('ocampPicList');
-            const campsite = document.getElementById('campsite');
-            const campsiteList = document.getElementById('campsiteList');
+            const campsiteContact = document.getElementById('campsiteContact');
+            const campsiteContactList = document.getElementById('campsiteContactList');
             const emergencyCall = document.getElementById('emergencyCall');
             const emergencyCallList = document.getElementById('emergencyCallList');
             const police = document.getElementById('police');
             const policeList = document.getElementById('policeList');
-
+        
             ocampPic.addEventListener('click', function() {
                 ocampPicList.classList.toggle('active');
             });
-
-            campsite.addEventListener('click', function() {
-                campsiteList.classList.toggle('active');
+        
+            campsiteContact.addEventListener('click', function() {
+                campsiteContactList.classList.toggle('active');
             });
-
+        
             emergencyCall.addEventListener('click', function() {
                 emergencyCallList.classList.toggle('active');
             });
-
+        
             police.addEventListener('click', function() {
                 policeList.classList.toggle('active');
             });
-
+        
             // Hide all contact details by default
             ocampPicList.classList.remove('active');
-            campsiteList.classList.remove('active');
+            campsiteContactList.classList.remove('active');
             emergencyCallList.classList.remove('active');
             policeList.classList.remove('active');
 
