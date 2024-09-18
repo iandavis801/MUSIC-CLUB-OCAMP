@@ -54,7 +54,6 @@
             scroll-snap-type: y mandatory;
             scroll-behavior: smooth;
             position: relative;
-            padding: 40px 20px; /* Add padding for more spacing */
         }
 
         header {
@@ -63,7 +62,7 @@
             left: 0;
             width: 100%;
             background-color: rgba(0, 0, 17, 0.85);
-            padding: 15px 0;
+            padding: 10px 0; /* Reduced padding */
             z-index: 1000;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
@@ -88,7 +87,7 @@
         section {
             width: 100vw;
             height: 100vh;
-            padding: 100px 40px; /* Increase padding for more spacing */
+            padding: 60px 20px; /* Reduced padding */
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -247,8 +246,8 @@
         }
 
         .circle {
-            width: 8px; /* Reduced width */
-            height: 8px; /* Reduced height */
+            width: 12px;
+            height: 12px;
             border-radius: 50%;
             background: transparent;
             border: 2px solid #7fffd4;
@@ -257,8 +256,8 @@
 
         .circle.filled {
             background: #00ffff;
-            width: 12px; /* Adjusted filled width */
-            height: 12px; /* Adjusted filled height */
+            width: 18px;
+            height: 18px;
         }
 
         .mouse-glow {
@@ -475,13 +474,13 @@
                     circles.forEach(circle => {
                         circle.classList.remove('filled');
                         circle.style.background = 'transparent';
-                        circle.style.width = '8px';   // Adjusted width
-                        circle.style.height = '8px';  // Adjusted height
+                        circle.style.width = '12px';
+                        circle.style.height = '12px';
                     });
                     circles[index].classList.add('filled');
                     circles[index].style.background = '#00ffff';
-                    circles[index].style.width = '12px'; // Adjusted filled width
-                    circles[index].style.height = '12px'; // Adjusted filled height
+                    circles[index].style.width = '18px';
+                    circles[index].style.height = '18px';
                 }
             });
         }
