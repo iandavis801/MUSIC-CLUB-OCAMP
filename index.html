@@ -1,415 +1,420 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HKU Music Club Ocamp</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HKU Music Club Ocamp</title>
 
-    <!-- Font Link -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
+<!-- Font Link -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
 
-        body {
-            font-family: 'DotGothic16', sans-serif;
-            background: linear-gradient(135deg, #000022, #000011);
-            color: #00ffff;
-            overflow-x: hidden;
-        }
+    body {
+        font-family: 'DotGothic16', sans-serif;
+        background: linear-gradient(135deg, #000022, #000011);
+        color: #00ffff;
+        overflow-x: hidden;
+    }
 
-        .loading-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background-color: rgba(0, 0, 17, 0.85);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            opacity: 1;
-            animation: fadeOut 1s forwards;
-            animation-delay: 2s;
-        }
+    .loading-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 17, 0.85);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        opacity: 1;
+        animation: fadeOut 1s forwards;
+        animation-delay: 2s;
+    }
 
-        @keyframes fadeOut {
-            to {
-                opacity: 0;
-                visibility: hidden;
-            }
-        }
-
-        .container {
-            width: 100vw;
-            height: 100vh;
-            overflow-y: scroll;
-            scroll-snap-type: y mandatory;
-            scroll-behavior: smooth;
-            position: relative;
-        }
-
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background-color: rgba(0, 0, 17, 0.85);
-            padding: 10px 0;
-            z-index: 1000;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-        }
-
-        nav ul {
-            display: flex;
-            justify-content: space-around;
-            list-style-type: none;
-        }
-
-        nav ul li a {
-            color: #00ffff;
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: color 0.3s ease;
-        }
-
-        nav ul li a:hover {
-            color: #7fffd4;
-        }
-
-        section {
-            width: 100vw;
-            height: 100vh;
-            padding: 60px 40px 80px 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            scroll-snap-align: start;
-            position: relative;
+    @keyframes fadeOut {
+        to {
             opacity: 0;
-            transform: translateY(20px);
-            animation: fadeIn 0.8s forwards;
+            visibility: hidden;
         }
+    }
 
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+    .container {
+        width: 100vw;
+        height: 100vh;
+        overflow-y: scroll;
+        scroll-snap-type: y mandatory;
+        scroll-behavior: smooth;
+        position: relative;
+    }
+
+    header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: rgba(0, 0, 17, 0.85);
+        padding: 10px 0;
+        z-index: 1000;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    nav ul {
+        display: flex;
+        justify-content: space-around;
+        list-style-type: none;
+    }
+
+    nav ul li a {
+        color: #00ffff;
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: color 0.3s ease;
+    }
+
+    nav ul li a:hover {
+        color: #7fffd4;
+    }
+
+    section {
+        width: 100vw;
+        height: 100vh;
+        padding: 60px 40px 80px 20px; /* Top, Right, Bottom, Left padding */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        scroll-snap-align: start;
+        position: relative;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeIn 0.8s forwards;
+    }
+
+    @keyframes fadeIn {
+        to {
+            opacity: 1;
+            transform: translateY(0);
         }
+    }
 
-        .stars {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-            animation: moveStars 30s linear infinite;
+    .stars {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: -1;
+        animation: moveStars 30s linear infinite;
+    }
+
+    @keyframes moveStars {
+        from {
+            background-position: 0 0;
         }
-
-        @keyframes moveStars {
-            from {
-                background-position: 0 0;
-            }
-            to {
-                background-position: 100% 100%;
-            }
+        to {
+            background-position: 100% 100%;
         }
+    }
 
-        .star {
-            position: absolute;
-            background-color: #fff;
-            border-radius: 50%;
-            animation: twinkle 3s infinite ease-in-out;
-        }
+    .star {
+        position: absolute;
+        background-color: #fff;
+        border-radius: 50%;
+        animation: twinkle 3s infinite ease-in-out;
+    }
 
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.3; }
-            50% { opacity: 1; }
-        }
+    @keyframes twinkle {
+        0%, 100% { opacity: 0.3; }
+        50% { opacity: 1; }
+    }
 
-        .logo {
-            font-size: 1.8rem;
-            text-align: center;
-            margin-bottom: 30px;
-            animation: glow 2s ease-in-out infinite alternate;
-        }
+    .logo {
+        font-size: 1.8rem;
+        text-align: center;
+        margin-bottom: 30px;
+        animation: glow 2s ease-in-out infinite alternate;
+    }
 
-        @keyframes glow {
-            from { text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff; }
-            to { text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff; }
-        }
+    @keyframes glow {
+        from { text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff; }
+        to { text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff; }
+    }
 
-        .planet {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            margin: 20px auto;
-            animation: rotate 10s linear infinite;
-            transition: transform 0.3s ease;
-        }
+    .planet {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        margin: 20px auto;
+        animation: rotate 10s linear infinite;
+        transition: transform 0.3s ease;
+    }
 
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
+    @keyframes rotate {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
 
-        #planet1 { background: radial-gradient(circle at 30% 30%, #ffff00, #ffa500); }
-        #planet2 { background: radial-gradient(circle at 30% 30%, #ff6347, #8b0000); }
-        #planet3 { background: radial-gradient(circle at 30% 30%, #00ffff, #1e90ff); }
+    #planet1 { background: radial-gradient(circle at 30% 30%, #ffff00, #ffa500); }
+    #planet2 { background: radial-gradient(circle at 30% 30%, #ff6347, #8b0000); }
+    #planet3 { background: radial-gradient(circle at 30% 30%, #00ffff, #1e90ff); }
 
-        h2 {
-            font-size: 1.4rem;
-            margin-bottom: 20px;
-            color: #7fffd4;
-            transition: opacity 0.5s ease;
-        }
+    h2 {
+        font-size: 1.4rem;
+        margin-bottom: 20px;
+        color: #7fffd4;
+        transition: opacity 0.5s ease;
+    }
 
-        p {
-            font-size: 1rem;
-            line-height: 1.6;
-            margin-bottom: 20px;
-            padding: 0 10px;
-            transition: opacity 0.5s ease;
-        }
+    p {
+        font-size: 1rem;
+        line-height: 1.6;
+        margin-bottom: 20px;
+        padding: 0 10px;
+        transition: opacity 0.5s ease;
+    }
 
-        .scroll-indicator {
-            position: absolute;
-            bottom: 80px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 2rem;
-            animation: bounce 1.5s infinite;
-            color: #7fffd4;
-        }
+    .scroll-indicator {
+        position: absolute;
+        bottom: 80px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 2rem;
+        animation: bounce 1.5s infinite;
+        color: #7fffd4;
+    }
 
-        .butterfly {
-            position: absolute;
-            bottom: 70px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 50px; 
-        }
+    .butterfly {
+        position: absolute;
+        bottom: 70px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 50px; 
+    }
 
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0) translateX(-50%); }
-            50% { transform: translateY(-10px) translateX(-50%); }
-        }
+    @keyframes bounce {
+        0%, 100% { transform: translateY(0) translateX(-50%); }
+        50% { transform: translateY(-10px) translateX(-50%); }
+    }
 
-        .progress-container {
-            width: 100%;
-            height: 5px;
-            background: #1e1e3f;
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 1001;
-        }
+    .progress-container {
+        width: 100%;
+        height: 5px;
+        background: #1e1e3f;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1001;
+    }
 
-        .progress-bar {
-            height: 5px;
-            background: #00ffff;
-            width: 0%;
-        }
+    .progress-bar {
+        height: 5px;
+        background: #00ffff;
+        width: 0%;
+    }
 
-        .noise {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('https://img.lovepik.com/photo/50062/7391.jpg_wh860.jpg');
-            opacity: 0.1;
-            pointer-events: none;
-        }
+    .noise {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('https://img.lovepik.com/photo/50062/7391.jpg_wh860.jpg');
+        opacity: 0.1;
+        pointer-events: none;
+    }
 
-        .mouse-glow {
-            position: fixed;
-            pointer-events: none;
-            width: 300px;
-            height: 300px;
-            border-radius: 50%;
-            background-color: rgba(0, 255, 255, 0.2);
-            transform: scale(0);
-            transition: transform 0.2s, background-color 0.2s;
-            box-shadow: 0 0 100px rgba(0, 255, 255, 1);
-            z-index: 999;
-            opacity: 0.5;
-        }
+    .mouse-glow {
+        position: fixed;
+        pointer-events: none;
+        width: 300px;
+        height: 300px;
+        border-radius: 50%;
+        background-color: rgba(0, 255, 255, 0.2);
+        transform: scale(0);
+        transition: transform 0.2s, background-color 0.2s;
+        box-shadow: 0 0 100px rgba(0, 255, 255, 1);
+        z-index: 999;
+        opacity: 0.5;
+    }
 
-        .floating-image {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 50px;
-            height: auto;
-            animation: shake 2s infinite;
-        }
+    .floating-image {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 50px;
+        height: auto;
+        animation: shake 2s infinite;
+    }
 
-        @keyframes shake {
-            0%, 100% { transform: translateY(0); }
-            25% { transform: translateY(-3px); }
-            75% { transform: translateY(3px); }
-        }
+    @keyframes shake {
+        0%, 100% { transform: translateY(0); }
+        25% { transform: translateY(-3px); }
+        75% { transform: translateY(3px); }
+    }
 
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 10000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.8);
-            justify-content: center;
-            align-items: center;
-        }
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 10000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.8);
+        justify-content: center;
+        align-items: center;
+    }
 
-        .modal-content-wrapper {
-            position: relative;
-            width: 80%;
-            max-width: 450px;
-            text-align: center;
-        }
+    .modal-content-wrapper {
+        position: relative;
+        width: 80%;
+        max-width: 450px;
+        text-align: center;
+    }
 
-        .modal-content {
-            width: 100%;
-            display: block;
-        }
+    .modal-content {
+        width: 100%;
+        display: block;
+    }
 
-        .modal-title {
-            color: #ffffff;
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-        }
+    .modal-title {
+        color: #ffffff;
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+    }
 
-        .close {
-            position: absolute;
-            top: 5px;
-            right: 10px;
-            color: #ffffff;
-            font-size: 30px;
-            font-weight: bold;
-            cursor: pointer;
-        }
+    .close {
+        position: absolute;
+        top: 5px;
+        right: 10px;
+        color: #ffffff;
+        font-size: 30px;
+        font-weight: bold;
+        cursor: pointer;
+    }
 
+    #campsiteImage {
+        max-width: 40%;
+        height: auto;
+    }
+
+    @media(min-width: 768px) {
         #campsiteImage {
-            max-width: 40%;
-            height: auto;
+            max-width: 15%;
         }
+    }
 
-        @media(min-width: 768px) {
-            #campsiteImage {
-                max-width: 15%;
-            }
-        }
+    .rundown {
+        text-align: left;
+        margin: 0 auto;
+        max-width: 300px;
+        overflow-y: auto;
+        max-height: 70vh;
+    }
 
-        .rundown {
-            text-align: left;
-            margin: 0 auto;
-            max-width: 300px;
-            overflow-y: auto;
-            max-height: 70vh;
-        }
+    .rundown h3 {
+        margin-top: 20px;
+        color: #7fffd4;
+        cursor: pointer;
+    }
 
-        .rundown h3 {
-            margin-top: 20px;
-            color: #7fffd4;
-        }
+    .rundown ul {
+        list-style-type: none;
+        padding-left: 0;
+        display: none;
+    }
 
-        .rundown ul {
-            list-style-type: none;
-            padding-left: 0;
-        }
+    .rundown li {
+        margin-bottom: 10px;
+    }
 
-        .rundown li {
-            margin-bottom: 10px;
-        }
-
-        .tab {
-            overflow: hidden;
-            border: 1px solid #00ffff;
-            background-color: rgba(0, 0, 17, 0.5);
-            display: flex;
-            justify-content: center;
-        }
-
-        .tab button {
-            background-color: inherit;
-            float: left;
-            border: none;
-            outline: none;
-            cursor: pointer;
-            padding: 14px 16px;
-            transition: 0.3s;
-            font-size: 17px;
-            color: #00ffff;
-        }
-
-        .tab button:hover {
-            background-color: rgba(0, 255, 255, 0.2);
-        }
-
-        .tab button.active {
-            background-color: rgba(0, 255, 255, 0.4);
-        }
-
-        .tabcontent {
-            display: none;
-            padding: 6px 12px;
-            border: 1px solid #00ffff;
-            border-top: none;
-        }
-    </style>
+    .active {
+        display: block !important;
+    }
+</style>
 </head>
+
 <body>
-    <!-- ... (previous HTML code remains the same) ... -->
+
+<div class="loading-screen">
+    <img src="https://i.imgur.com/83Cynwp.png" alt="Loading Logo" style="width: 200px;">
+</div>
+
+<div class="noise"></div>
+<div class="mouse-glow" id="mouseGlow"></div>
+
+<img src="https://i.imgur.com/JlNPQqC.png" class="floating-image" alt="Floating Image">
+
+<header>
+    <nav>
+        <ul>
+            <li><a href="#intro">Introduction</a></li>
+            <li><a href="#activities">Activities</a></li>
+            <li><a href="#info">Information</a></li>
+            <li><a href="#campsite">Campsite Map</a></li>
+        </ul>
+    </nav>
+</header>
+
+<div class="stars" id="stars"></div>
+<div class="container" id="scrollContainer">
+    <section id="intro">
+        <div class="logo">HKU MUSIC CLUB</div>
+        <h2>"GALAXY"</h2>
+        <p>Orientation Series</p>
+        <div class="scroll-indicator">
+            <img class="butterfly" src="https://gifdb.com/images/high/pixelated-blue-butterflies-9gmbpet2dl3jpdhj.gif" alt="Butterfly GIF">
+            ↓
+        </div>
+    </section>
+
+    <section id="activities">
+        <div class="planet" id="planet1"></div>
+        <h2>Interstellar Music Events</h2>
+        <p>1. Music Planet Exploration</p>
+        <p>2. Interstellar Instrument Workshop</p>
+        <p>3. Galaxy Music Festival</p>
+        <div class="scroll-indicator">
+            <img class="butterfly" src="https://gifdb.com/images/high/pixelated-blue-butterflies-9gmbpet2dl3jpdhj.gif" alt="Butterfly GIF">
+            ↓
+        </div>
+    </section>
 
     <section id="info">
         <div class="planet" id="planet2"></div>
         <h2>Rundown</h2>
-        <div class="tab">
-            <button class="tablinks" onclick="openDay(event, 'Day1')" id="defaultOpen">DAY1</button>
-            <button class="tablinks" onclick="openDay(event, 'Day2')">DAY2</button>
-        </div>
-
-        <div id="Day1" class="tabcontent">
-            <div class="rundown">
-                <ul>
-                    <li>09:00 Gathering Time</li>
-                    <li>09:00 Ice Breaking Games</li>
-                    <li>09:50 Mass Game</li>
-                    <li>11:00 Lunch</li>
-                    <li>13:10 Departure Time</li>
-                    <li>13:45 Disembarkation Time</li>
-                    <li>15:30 Water Games</li>
-                    <li>18:00 Dinner</li>
-                    <li>19:00 Campfire</li>
-                    <li>22:00 Band Practice</li>
-                </ul>
-            </div>
-        </div>
-
-        <div id="Day2" class="tabcontent">
-            <div class="rundown">
-                <ul>
-                    <li>09:00 Band Performance</li>
-                    <li>10:45 Turtle Back</li>
-                    <li>12:00 Dismiss</li>
-                </ul>
-            </div>
+        <div class="rundown">
+            <h3 id="day1">DAY1</h3>
+            <ul id="day1List">
+                <li>09:00 Gathering Time</li>
+                <li>09:00 Ice Breaking Games</li>
+                <li>09:50 Mass Game</li>
+                <li>11:00 Lunch</li>
+                <li>13:10 Departure Time</li>
+                <li>13:45 Disembarkation Time</li>
+                <li>15:30 Water Games</li>
+                <li>18:00 Dinner</li>
+                <li>19:00 Campfire</li>
+                <li>22:00 Band Practice</li>
+            </ul>
+            <h3 id="day2">Day2</h3>
+            <ul id="day2List">
+                <li>09:00 Band Performance</li>
+                <li>10:45 Turtle Back</li>
+                <li>12:00 Dismiss</li>
+            </ul>
         </div>
         <div class="scroll-indicator">
             <img class="butterfly" src="https://gifdb.com/images/high/pixelated-blue-butterflies-9gmbpet2dl3jpdhj.gif" alt="Butterfly GIF">
@@ -417,29 +422,123 @@
         </div>
     </section>
 
-    <!-- ... (rest of the HTML code remains the same) ... -->
+    <section id="campsite">
+        <h2>Campsite Map</h2>
+        <img src="https://i.imgur.com/WrhRRRF.jpeg" alt="Campsite Map" id="campsiteImage">
+        <div class="scroll-indicator">
+            <img class="butterfly" src="https://gifdb.com/images/high/pixelated-blue-butterflies-9gmbpet2dl3jpdhj.gif" alt="Butterfly GIF">
+            ↓
+        </div>
+    </section>
+</div>
 
-    <script>
-        // ... (previous JavaScript code remains the same) ...
+<div class="progress-container">
+    <div class="progress-bar" id="progressBar"></div>
+</div>
 
-        function openDay(evt, dayName) {
-            var i, tabcontent, tablinks;
-            tabcontent = document.getElementsByClassName("tabcontent");
-            for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].style.display = "none";
+<div id="myModal" class="modal">
+    <div class="modal-content-wrapper">
+        <span class="close">&times;</span>
+        <div class="modal-title" id="caption"></div>
+        <img class="modal-content" id="img01">
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const modal = document.getElementById("myModal");
+        const img = document.getElementById("campsiteImage");
+        const modalImg = document.getElementById("img01");
+        const captionText = document.getElementById("caption");
+        const span = document.getElementsByClassName("close")[0];
+
+        img.addEventListener('click', function() {
+            modal.style.display = "flex";
+            modalImg.src = this.src;
+            captionText.innerHTML = this.alt;
+        });
+
+        span.addEventListener('click', function() {
+            modal.style.display = "none";
+        });
+
+        window.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                modal.style.display = "none";
             }
-            tablinks = document.getElementsByClassName("tablinks");
-            for (i = 0; i < tablinks.length; i++) {
-                tablinks[i].className = tablinks[i].className.replace(" active", "");
-            }
-            document.getElementById(dayName).style.display = "block";
-            evt.currentTarget.className += " active";
+        });
+
+        // Rundown toggle functionality
+        const day1 = document.getElementById('day1');
+        const day2 = document.getElementById('day2');
+        const day1List = document.getElementById('day1List');
+        const day2List = document.getElementById('day2List');
+
+        day1.addEventListener('click', function() {
+            day1List.classList.toggle('active');
+            day2List.classList.remove('active');
+        });
+
+        day2.addEventListener('click', function() {
+            day2List.classList.toggle('active');
+            day1List.classList.remove('active');
+        });
+
+        // Show DAY1 by default
+        day1List.classList.add('active');
+    });
+
+    function createStars() {
+        const stars = document.getElementById('stars');
+        const count = 100;
+
+        for (let i = 0; i < count; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.width = `${Math.random() * 3}px`;
+            star.style.height = star.style.width;
+            star.style.left = `${Math.random() * 100}%`;
+            star.style.top = `${Math.random() * 100}%`;
+            star.style.animationDelay = `${Math.random() * 5}s`;
+            stars.appendChild(star);
         }
+    }
 
-        // Get the element with id="defaultOpen" and click on it
-        document.getElementById("defaultOpen").click();
+    function updateProgressBar() {
+        const progressBar = document.getElementById('progressBar');
+        const scrollContainer = document.getElementById('scrollContainer');
 
-        // ... (rest of the JavaScript code remains the same) ...
-    </script>
+        const scrollTop = scrollContainer.scrollTop;
+        const scrollHeight = scrollContainer.scrollHeight - scrollContainer.clientHeight;
+        const scrollPercentage = (scrollTop / scrollHeight) * 100;
+
+        progressBar.style.width = scrollPercentage + '%';
+    }
+
+    const mouseGlow = document.getElementById('mouseGlow');
+
+    document.addEventListener('mousemove', (e) => {
+        mouseGlow.style.left = `${e.clientX - 150}px`;
+        mouseGlow.style.top = `${e.clientY - 150}px`;
+        mouseGlow.style.transform = 'scale(1)';
+    });
+
+    document.addEventListener('mouseleave', () => {
+        mouseGlow.style.transform = 'scale(0)';
+    });
+
+    window.addEventListener('load', () => {
+        createStars();
+        const scrollContainer = document.getElementById('scrollContainer');
+        scrollContainer.addEventListener('scroll', () => {
+            updateProgressBar();
+        });
+
+        const loadingScreen = document.querySelector('.loading-screen');
+        setTimeout(() => {
+            loadingScreen.style.animation = 'fadeOut 1s forwards';
+        }, 2000);
+    });
+</script>
 </body>
 </html>
