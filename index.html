@@ -53,7 +53,9 @@
             overflow-y: scroll;
             scroll-snap-type: y mandatory;
             scroll-behavior: smooth;
-            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         header {
@@ -85,9 +87,10 @@
         }
 
         section {
-            width: 90vw;
+            width: 100%;
+            max-width: 600px; /* Center and restrict width on larger screens */
             height: 100vh;
-            padding: 60px 40px 80px 20px; /* Top, Right, Bottom, Left padding */
+            padding: 60px 20px 100px; /* Top, Right Left, Bottom padding */
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -186,7 +189,7 @@
 
         .scroll-indicator {
             position: absolute;
-            bottom: 20px; /* Adjusted to avoid URL bar */
+            bottom: 60px; /* Adjusted higher to avoid URL bar */
             left: 50%;
             transform: translateX(-50%);
             font-size: 2rem;
@@ -196,7 +199,7 @@
 
         .butterfly {
             position: absolute;
-            bottom: 60px; /* Close to arrow */
+            bottom: 100px; /* Close to arrow but higher */
             left: 50%;
             transform: translateX(-50%);
             width: 50px; 
