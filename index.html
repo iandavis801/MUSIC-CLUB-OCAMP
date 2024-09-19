@@ -316,11 +316,11 @@
         .about-us-grid {
             display: grid;
             grid-template-columns: repeat(6, 1fr);
-            grid-gap: 20px;
+            grid-gap: 10px; /* 将间距稍微减小 */
             margin: 20px 0;
             text-align: center;
         }
-
+        
         .member {
             display: flex;
             flex-direction: column;
@@ -329,17 +329,29 @@
         }
         
         .member img {
-            width: 100px;
-            height: 100px;
+            width: 80px; /* 缩小图片宽度 */
+            height: 80px; /* 缩小图片高度 */
             border-radius: 50%;
             object-fit: cover;
         }
         
         .member p {
-            margin-top: 10px;
+            margin-top: 5px; /* 缩小文字间距 */
             color: #7fffd4;
-            font-size: 1rem;
+            font-size: 0.8rem; /* 缩小字体大小 */
         }
+        
+        @media (max-width: 480px) {
+          .member img {
+              width: 60px; /* 进一步缩小图片宽度在小屏幕上 */
+              height: 60px; /* 进一步缩小图片高度在小屏幕上 */
+          }
+        
+          .member p {
+              font-size: 0.7rem; /* 进一步缩小字体大小在小屏幕上 */
+          }
+        }
+
 
     </style>
 </head>
